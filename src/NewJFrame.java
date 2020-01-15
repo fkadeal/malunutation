@@ -30,8 +30,18 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         conn = Dbconn.ConnecrDb();  //fk
         UpdateList();
+        
     }
 
+    private void ClearFild(){
+        fname.setText(null);
+        lname.setText(null);
+        sex.setText(null);
+        age.setText(null);
+        wgt.setText(null);
+        hgt.setText(null);
+        hc.setText(null);
+    }
     private void UpdateList(){
         String sql="SELECT * FROM my_kids";
         try{
@@ -282,6 +292,8 @@ public class NewJFrame extends javax.swing.JFrame {
             pst.setString(7, hc.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "insered");
+            UpdateList();
+            ClearFild();
         }catch(HeadlessException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
