@@ -55,12 +55,13 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     
     private void UpdateCombo(){
+        UpdateList();
        String sql ="select * from my_kids";
         try{
             pst = conn.prepareStatement(sql);
-            rs= pst.executeQuery(); 
+            rs= pst.executeQuery();
             while(rs.next()){
-                combo.addItem(rs.getString("id"));
+            combo.addItem(rs.getString("id"));
                   }
         }catch(Exception e){
             
@@ -96,6 +97,7 @@ public class NewJFrame extends javax.swing.JFrame {
         kable = new javax.swing.JTable();
         combo = new javax.swing.JComboBox<>();
         updateButton = new javax.swing.JButton();
+        deleteB = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,6 +195,8 @@ public class NewJFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(kable);
 
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "rtytre" }));
+
         updateButton.setText("update");
         updateButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,6 +206,13 @@ public class NewJFrame extends javax.swing.JFrame {
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
+            }
+        });
+
+        deleteB.setText("Delete");
+        deleteB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBActionPerformed(evt);
             }
         });
 
@@ -245,6 +256,8 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(deleteB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
@@ -256,7 +269,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateButton))
+                    .addComponent(updateButton)
+                    .addComponent(deleteB))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -337,6 +351,7 @@ public class NewJFrame extends javax.swing.JFrame {
             pst.execute();
             JOptionPane.showMessageDialog(null, "insered");
             UpdateList();
+             
             ClearFild();
         }catch(HeadlessException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -383,12 +398,27 @@ public class NewJFrame extends javax.swing.JFrame {
         try{
             pst = conn.prepareStatement(sql);
             pst.execute();
-            JOptionPane.showMessageDialog(null,"data updated");
+            JOptionPane.showMessageDialog(fname,"data updated");
             UpdateList();
+            
         }catch(HeadlessException | SQLException e){
              JOptionPane.showMessageDialog(null,"error: "+e);
         }
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBActionPerformed
+        String sql = "delete from my_kids where id ="+combo.getSelectedItem().toString();
+        try{
+            pst=conn.prepareStatement(sql);
+            pst.execute();
+             UpdateList();
+            JOptionPane.showMessageDialog(fname, "Deleted successfuly");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"and die");
+            
+        }
+        
+    }//GEN-LAST:event_deleteBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,6 +452,7 @@ public class NewJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField age;
     private javax.swing.JComboBox<String> combo;
+    private javax.swing.JButton deleteB;
     private javax.swing.JTextField fname;
     private javax.swing.JTextField hc;
     private javax.swing.JTextField hgt;
