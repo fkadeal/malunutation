@@ -371,18 +371,20 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         // TODO add your handling code here:
-        String sql="update my_kids set fname = "+ fname.getText()+","
-                +  "lname = '"+ lname.getText()+","
-                +  "sex = '"+ sex.getText()+"','"
-                +  "age = '"+ age.getText()+"','"
-                +  "wgt = '"+ wgt.getText()+"','"
-                +  "hgt = '"+ hgt.getText()+"','"
-                +  "handCerc = '"+ hc.getText()+"','"
+        String sql="update my_kids set "
+                + "fname = '"+ fname.getText()+"',"
+                +  "lname = '"+ lname.getText()+"',"
+                +  "sex = '"+ sex.getText()+"',"
+                +  "age = '"+ age.getText()+"',"
+                +  "wgt = '"+ wgt.getText()+"',"
+                +  "hgt = '"+ hgt.getText()+"',"
+                +  "handCerc = '"+ hc.getText()+"'"
                 +  "where id = "+combo.getSelectedItem().toString();
         try{
             pst = conn.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null,"data updated");
+            UpdateList();
         }catch(HeadlessException | SQLException e){
              JOptionPane.showMessageDialog(null,"error: "+e);
         }
