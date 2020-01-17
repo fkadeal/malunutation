@@ -338,7 +338,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String sql= "INSERT INTO my_kids(fname,lname,sex,age,wgt,hgt,handCerc) VALUES (?,?,?,?,?,?,?)";
+        String sql= "INSERT INTO my_kids(fname,lname,sex,age,wgt,hgt,handCerc,bmi) VALUES (?,?,?,?,?,?,?,?)";
         try{
             pst=conn.prepareStatement(sql);
             pst.setString(1, fname.getText());
@@ -348,6 +348,7 @@ public class NewJFrame extends javax.swing.JFrame {
             pst.setString(5, wgt.getText());
             pst.setString(6, hgt.getText());
             pst.setString(7, hc.getText());
+            //pst.setString(8, bmi.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "insered");
             UpdateList();
